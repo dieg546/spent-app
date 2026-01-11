@@ -1,6 +1,9 @@
-import { useReducer, useContext} from "react"
 import BudgetForm from "./components/BudgetForm"
+import BudgetTracker from "./components/BudgetTracker"
+import ExpenseModal from "./components/modals/ExpenseModal"
 import { useBudget } from "./hooks/useBudget"
+import { useMemo } from "react"
+
 
 function App() {
   
@@ -11,7 +14,14 @@ function App() {
 
   const {state, dispatch} = useBudget()
 
-  console.log(state)
+  console.log(state.budget)
+
+  const isValidBudget = useMemo(()=>{
+
+    return state.budget>0
+
+  },[state.budget])
+
   return (
     <>
       
@@ -25,12 +35,19 @@ function App() {
 
       <div className=" max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10">
 
-        <BudgetForm
-          budget={state?.budget} 
-          dispatch={dispatch}
-        />
+        {isValidBudget ? <BudgetTracker/> : <BudgetForm/>}
+
+        
 
       </div>
+
+      {isValidBudget && (
+        
+        <ExpenseModal/>
+
+      )}
+
+      
 
     </>
   )
