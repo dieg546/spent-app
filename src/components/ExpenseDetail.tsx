@@ -6,6 +6,8 @@ import { useMemo } from "react"
 import {LeadingActions,SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from 'react-swipeable-list'
 import 'react-swipeable-list/dist/styles.css';
 
+import { useBudget } from "../hooks/useBudget"
+
 type ExpenseDetailProps={
 
     expense: Expense
@@ -13,6 +15,8 @@ type ExpenseDetailProps={
 }
 
 export default function ExpenseDetail({expense}: ExpenseDetailProps) {
+
+    const {dispatch} = useBudget()
 
     const categoryInfo = useMemo(()=> categories.filter(item=>{
 
@@ -27,7 +31,7 @@ export default function ExpenseDetail({expense}: ExpenseDetailProps) {
         <LeadingActions>
             <SwipeAction
 
-                onClick={()=>{}}
+                onClick={()=>dispatch({type:'get-expense-by-id',payload:{id:expense.id}})}
             >
                 Actualizar
             </SwipeAction>
@@ -37,14 +41,15 @@ export default function ExpenseDetail({expense}: ExpenseDetailProps) {
 
     const trailingActions=()=>(
 
-        <LeadingActions>
+        <TrailingActions>
             <SwipeAction
 
-                onClick={()=>{}}
+                onClick={()=>dispatch({type:'remove-expense',payload:{id:expense.id}})}
+                destructive={true}
             >
                 Eliminar
             </SwipeAction>
-        </LeadingActions>
+        </TrailingActions>
 
     ) 
 

@@ -7,6 +7,7 @@ export default function ExpenseList() {
     const {state, dispatch} = useBudget()
 
     const isEmpty = useMemo(()=> state.expenses.length===0,[state.expenses])
+    console.log(isEmpty)
 
     return (
         
