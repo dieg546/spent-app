@@ -2,13 +2,15 @@ import { v4 as uuidv4 } from "uuid"
 import type { DraftExpense, Expense } from "../types"
 
 export type BudgetActions = 
+
     {type: 'add-budget',payload: {budget:number}}|
     {type: 'show-modal'} |
     {type: 'close-modal'} |
     {type: 'add-expense', payload:{expense: DraftExpense}} |
     {type: 'remove-expense', payload:{id: Expense['id']}} |
     {type: 'get-expense-by-id', payload:{id: Expense['id']}} |
-    {type: 'update-expense', payload: {expense: Expense}}
+    {type: 'update-expense', payload: {expense: Expense}} |
+    {type: 'restart-app'}
 
 export type BudgetState={
 
@@ -29,10 +31,16 @@ const initialBudget=() : number =>{
 const initialExpenses= () : Expense[] => {
 
     const localStorageExpenses = localStorage.getItem('expenses')
-
+    
     return localStorageExpenses? JSON.parse(localStorageExpenses) : []
 
 }
+
+// const clearLocalStorage = () =>{
+
+//     localStorage.clear()
+
+// }
 
 export const initialState : BudgetState={
 
@@ -145,6 +153,19 @@ export const budgetReducer=(
                 ),
             
             
+        }
+
+    }
+
+    if(action.type==='restart-app'){
+
+        // clearLocalStorage()
+
+        return{
+            ...state,
+            budget: 0,
+            expenses: []
+
         }
 
     }

@@ -77,7 +77,12 @@ export default function ExpenseForm() {
             return 
         }
 
-        if((expense.amount- prevAmount) > amountAvalible){
+        if((expense.amount - prevAmount) > amountAvalible){
+
+            console.log(expense.amount)
+            console.log(prevAmount)
+            console.log(amountAvalible)
+
             setError('No puedes superar el monto disponible.')
             return 
         }

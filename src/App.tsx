@@ -13,9 +13,10 @@ function App() {
   // const context = useContext(BudgetContext)
   // console.log(context)
 
-  const {state, dispatch} = useBudget()
+  const {state, dispatch,amountAvalible} = useBudget()
 
   console.log(state.budget)
+  console.log("EPAAAA ",amountAvalible)
 
   const isValidBudget = useMemo(()=>{
 

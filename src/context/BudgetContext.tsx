@@ -21,15 +21,20 @@ export const BudgetContext = createContext<BudgetContextProps>(null!)
 
 export const BudgetProvider=({children}: BudgetProviderProps)=>{
 
+    console.log("HOLAAAAA")
+
     const [state,dispatch] = useReducer(budgetReducer,initialState)
 
     const amountSpent = useMemo(() => state.expenses.reduce((total,expense)=>{
 
         return total + expense.amount 
 
-    },0), [state.expenses])
+    },0), [state.expenses,state.budget])
 
-    const amountAvalible = useMemo(()=> state.budget - amountSpent ,[state.expenses])
+    const amountAvalible = useMemo(()=> state.budget - amountSpent ,[state.expenses,state.budget])
+
+    console.log("Disponible ", state.budget)
+    console.log("Gastado ", amountAvalible)
 
     return(
         <BudgetContext.Provider
