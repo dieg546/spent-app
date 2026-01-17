@@ -7,7 +7,11 @@ export default function ExpenseList() {
     const {state, dispatch} = useBudget()
 
     const isEmpty = useMemo(()=> state.expenses.length===0,[state.expenses])
-    console.log(isEmpty)
+    // console.log(isEmpty)
+
+    const filteredExpenses = state.CurrentCategory ? 
+        state.expenses.filter(expense => expense.category === state.CurrentCategory):
+        state.expenses
 
     return (
         
@@ -22,10 +26,13 @@ export default function ExpenseList() {
                     <div>
 
                         <p className="text-gray-600 text-2xl font-bold my-5">
-                            Listado de Gastos
+                            {filteredExpenses.length!==0?'Listado de Gastos':'No hay gastos de esta categoria'}
                         </p>
 
-                        {state.expenses.map(expense=>(
+                        
+
+                        {filteredExpenses.map(expense=>(
+
                             <ExpenseDetail
 
                                 key={expense.id}
